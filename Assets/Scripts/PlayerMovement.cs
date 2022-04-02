@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     new Transform transform;
-    new Collider2D collider;
     Camera mainCam;
 
     [SerializeField] float moveSpeed;
@@ -12,14 +11,12 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         transform = GetComponent<Transform>();
-        collider = GetComponent<Collider2D>();
         mainCam = Camera.main;
     }
 
     void Update()
     {
         GetMovementInput();
-        GetShootingInput();
     }
 
     void GetMovementInput()
@@ -35,10 +32,5 @@ public class PlayerMovement : MonoBehaviour
 
             transform.Translate(moveSpeed * transform.up * Time.deltaTime, Space.World);
         }
-    }
-
-    void GetShootingInput()
-    {
-        // to-do
     }
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Float", menuName = "Scriptable Object/PlayerSettings")]
 public class PlayerSettings : ScriptableObject
 {
-    public float musicVolume;
-    public float soundVolume;
+    public FloatObject musicVolume;
+    public FloatObject soundVolume;
 }

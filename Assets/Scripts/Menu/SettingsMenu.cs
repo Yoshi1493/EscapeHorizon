@@ -18,19 +18,19 @@ public class SettingsMenu : Menu
 
     void InitSettings()
     {
-        musicSlider.value = userSettings.musicVolume * 10f;
-        soundSlider.value = userSettings.soundVolume * 10f;
+        musicSlider.value = userSettings.musicVolume.Value * 10f;
+        soundSlider.value = userSettings.soundVolume.Value * 10f;
     }
 
     public void OnChangeMusicVolume(TextMeshProUGUI tmp)
     {
-        userSettings.musicVolume = musicSlider.value * 0.1f;
+        userSettings.musicVolume.Value = musicSlider.value * 0.1f;
         tmp.text = musicSlider.value.ToString();
     }
 
     public void OnChangeSoundVolume(TextMeshProUGUI tmp)
     {
-        userSettings.soundVolume = soundSlider.value * 0.1f;
+        userSettings.soundVolume.Value = soundSlider.value * 0.1f;
         tmp.text = soundSlider.value.ToString();
     }
 }
