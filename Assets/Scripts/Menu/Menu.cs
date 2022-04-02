@@ -10,12 +10,14 @@ public abstract class Menu : MonoBehaviour
         thisMenu = GetComponent<Canvas>();
     }
 
-    public void Open(GameObject newSelectedGameObject)
+    public void Open()
     {
         thisMenu.enabled = true;
 
         if (thisMenu.TryGetComponent(out Menu m))
-            m.Enable(newSelectedGameObject);
+        {
+            m.Enable();
+        }
     }
 
     public void Close()
@@ -24,7 +26,7 @@ public abstract class Menu : MonoBehaviour
         Disable();
     }
 
-    public virtual void Enable(GameObject newSelectedGameObject)
+    public virtual void Enable()
     {
         if (TryGetComponent(out CanvasGroup cg))
         {
