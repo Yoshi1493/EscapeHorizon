@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
     new Transform transform;
     Camera mainCam;
 
-    [SerializeField] float moveSpeed;
+    [SerializeField] FloatObject moveSpeed;
     const float MovementThreshold = 0.01f;
 
     void Awake()
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
             float zRot = Mathf.Atan2(-distance.x, distance.y) * Mathf.Rad2Deg;
             transform.eulerAngles = zRot * Vector3.forward;
 
-            transform.Translate(moveSpeed * transform.up * Time.deltaTime, Space.World);
+            transform.Translate(moveSpeed.Value * Time.deltaTime  * transform.up, Space.World);
         }
     }
 }
