@@ -4,49 +4,41 @@ public class PlayerMovement : MonoBehaviour
 {
     new Transform transform;
     new Collider2D collider;
-
-    Vector3 inputDirection;
-    Vector3 lastNonzeroInputDirection;
-
-    Vector3 velocity;
+    Camera mainCam;
 
     [SerializeField] float moveSpeed;
+    const float MovementThreshold = 0.01f;
 
     void Awake()
     {
         transform = GetComponent<Transform>();
         collider = GetComponent<Collider2D>();
+        mainCam = Camera.main;
     }
 
     void Update()
     {
         GetMovementInput();
-        UpdateRotation();
+        GetShootingInput();
     }
 
     void GetMovementInput()
     {
-        // get input
-        inputDirection.x = Input.GetAxisRaw("Horizontal");
-        inputDirection.y = Input.GetAxisRaw("Vertical");
+        Vector3 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 distance = Vector3.ClampMagnitude(mousePos - transform.position, 1f);
+        distance.z = 0f;
 
-        // update lastNonzeroInputDirection if necessary
-        if (inputDirection != lastNonzeroInputDirection && inputDirection != Vector3.zero)
+        if (distance.magnitude > MovementThreshold)
         {
-            lastNonzeroInputDirection = inputDirection;
+            float zRot = Mathf.Atan2(-distance.x, distance.y) * Mathf.Rad2Deg;
+            transform.eulerAngles = zRot * Vector3.forward;
+
+            transform.Translate(moveSpeed * transform.up * Time.deltaTime, Space.World);
         }
-
-        // set velocity
-        velocity = moveSpeed * inputDirection.normalized;
-
-        // apply movement
-        transform.Translate(velocity * Time.deltaTime, Space.World);
     }
 
-    // set z-rotation based on lastNonzeroInputDirection (to-do: remove eventually)
-    void UpdateRotation()
+    void GetShootingInput()
     {
-        float zRot = Mathf.Atan2(-lastNonzeroInputDirection.x, lastNonzeroInputDirection.y) * Mathf.Rad2Deg;
-        transform.eulerAngles = zRot * Vector3.forward;
+        // to-do
     }
 }
