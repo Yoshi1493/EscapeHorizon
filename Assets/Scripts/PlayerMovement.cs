@@ -3,23 +3,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     new Transform transform;
-    new Collider2D collider;
     Camera mainCam;
 
-    [SerializeField] float moveSpeed;
+    [SerializeField] FloatObject moveSpeed;
     const float MovementThreshold = 0.01f;
 
     void Awake()
     {
         transform = GetComponent<Transform>();
-        collider = GetComponent<Collider2D>();
         mainCam = Camera.main;
     }
 
     void Update()
     {
         GetMovementInput();
-        GetShootingInput();
     }
 
     void GetMovementInput()
@@ -33,12 +30,7 @@ public class PlayerMovement : MonoBehaviour
             float zRot = Mathf.Atan2(-distance.x, distance.y) * Mathf.Rad2Deg;
             transform.eulerAngles = zRot * Vector3.forward;
 
-            transform.Translate(moveSpeed * transform.up * Time.deltaTime, Space.World);
+            transform.Translate(moveSpeed.Value * Time.deltaTime  * transform.up, Space.World);
         }
-    }
-
-    void GetShootingInput()
-    {
-        // to-do
     }
 }
