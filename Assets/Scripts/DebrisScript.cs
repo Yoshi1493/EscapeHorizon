@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DebrisScript : MonoBehaviour
 {
-
-
     void Start()
     {
     }
