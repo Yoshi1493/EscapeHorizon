@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebrisScript : MonoBehaviour
+public class Debris : Actor
 {
     void Start()
     {

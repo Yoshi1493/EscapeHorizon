@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8933687290718621622}
   - component: {fileID: 6807672883819894901}
   - component: {fileID: 5892860477751133789}
+  - component: {fileID: -3015763020097077451}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,3 +122,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3015763020097077451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796793719318112754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b986e26410433f4e86a5cfb4c323bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,6 +9,7 @@ public class PlayerMovement : Actor
 
     protected override void Awake()
     {
+        base.Awake();
         mainCam = Camera.main;
     }
 

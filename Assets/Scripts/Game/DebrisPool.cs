@@ -1,4 +1,4 @@
-public class DebrisPool : UnityEngine.MonoBehaviour /*ObjectPooler<DebrisScript>*/
+public class DebrisPool : ObjectPooler<Debris>
 {
 
 }
