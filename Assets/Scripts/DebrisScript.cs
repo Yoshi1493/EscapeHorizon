@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class DebrisScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (this.gameObject.transform.parent != null)
+        {
+
+            if (this.gameObject.transform.parent.gameObject.name == "Debris")
+            {
+                this.gameObject.layer = 0;
+            }
+
+            else
+            {
+                this.gameObject.layer = 8;
+            }
+        }
+        else
+        {
+            this.gameObject.layer = 8;
+        }
+
     }
 }

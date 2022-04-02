@@ -207,7 +207,8 @@ GameObject:
   - component: {fileID: 257818165}
   - component: {fileID: 257818164}
   - component: {fileID: 257818163}
-  m_Layer: 8
+  - component: {fileID: 257818167}
+  m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,6 +327,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &257818167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257818162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b986e26410433f4e86a5cfb4c323bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &349434921
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +568,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 256
-  m_ForceMagnitude: -3
+  m_ForceMagnitude: -9.34
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
