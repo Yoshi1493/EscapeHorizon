@@ -4,7 +4,7 @@ using TMPro;
 
 public class SettingsMenu : Menu
 {
-    [SerializeField] PlayerSettings userSettings;
+    [SerializeField] UserSettings userSettings;
 
     [Header("Settings elements")]
     [SerializeField] Slider musicSlider;
