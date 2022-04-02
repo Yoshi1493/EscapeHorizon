@@ -1,14 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class MainMenu : Menu
 {
-    public void OnSelectPlay()
-    {
-
-    }
-
     public void OnSelectQuit()
     {
 #if UNITY_EDITOR
