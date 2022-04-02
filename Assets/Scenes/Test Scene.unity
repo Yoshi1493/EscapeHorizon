@@ -320,7 +320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257818162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.41, y: -0.88, z: 0}
+  m_LocalPosition: {x: -4.58, y: -1.38, z: 0}
   m_LocalScale: {x: 0.7436, y: 0.7436, z: 0.7436}
   m_Children: []
   m_Father: {fileID: 0}
@@ -560,7 +560,7 @@ PointEffector2D:
   m_DistanceScale: 1
   m_ForceSource: 0
   m_ForceTarget: 0
-  m_ForceMode: 0
+  m_ForceMode: 2
   m_Drag: 0
   m_AngularDrag: 0
 --- !u!1001 &1753193462
@@ -576,11 +576,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1485731114724620488, guid: c47618f4f3375f240a6ef9fe211640e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -2.55
       objectReference: {fileID: 0}
     - target: {fileID: 1485731114724620488, guid: c47618f4f3375f240a6ef9fe211640e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.99
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 1485731114724620488, guid: c47618f4f3375f240a6ef9fe211640e2, type: 3}
       propertyPath: m_LocalPosition.z

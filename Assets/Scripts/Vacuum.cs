@@ -1,4 +1,5 @@
 using UnityEngine;
+using static VectorHelper;
 
 public class Vacuum : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class Vacuum : MonoBehaviour
             float theta = (FieldOfView * -0.5f) + (i * raySpread);
 
             // get all ray directions based on field of view and raycast rotation amount
-            Vector3 direction = RotateVectorBy(transform.up, theta);
+            Vector3 direction = transform.up.RotateVectorBy(theta);
 
             // perform raycast
             var hit = Physics2D.Raycast(transform.position, direction, RangeOfView);
