@@ -14,6 +14,12 @@ public class SettingsMenu : Menu
     {
         base.Awake();
         InitSettings();
+
+        PauseHandler pauseHandler = FindObjectOfType<PauseHandler>();
+        if (pauseHandler != null)
+        {
+            pauseHandler.GamePauseAction += OnGamePaused;
+        }
     }
 
     void InitSettings()
@@ -32,5 +38,13 @@ public class SettingsMenu : Menu
     {
         userSettings.soundVolume.Value = soundSlider.value * 0.1f;
         tmp.text = soundSlider.value.ToString();
+    }
+
+    void OnGamePaused(bool pauseState)
+    {
+        if (!pauseState)
+        {
+            Close();
+        }
     }
 }
