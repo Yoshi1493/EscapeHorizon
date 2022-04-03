@@ -14,6 +14,8 @@ public class Debris : Actor
     [SerializeField] AnimationCurve scaleInterpolationCurve;
     IEnumerator scaleCoroutine;
 
+    Player player;
+
     protected override void Awake()
     {
         base.Awake();
@@ -22,7 +24,8 @@ public class Debris : Actor
         vacuum.VacuumAction += OnPlayerVacuum;
         vacuum.DispelAction += OnPlayerDispel;
 
-        FindObjectOfType<Player>().GameOverAction += OnGameOver;
+        player = FindObjectOfType<Player>();
+        player.GameOverAction += OnGameOver;
     }
 
     void OnEnable()
@@ -42,6 +45,11 @@ public class Debris : Actor
 
     void Move()
     {
+        if (transform.parent != null)
+        {
+            moveDirection = transform.parent.position - transform.position;
+        }
+
         transform.Translate(moveSpeed * Time.deltaTime * moveDirection, Space.World);
     }
 
@@ -52,7 +60,7 @@ public class Debris : Actor
 
     void OnPlayerVacuum(Debris debris)
     {
-        debris.moveSpeed = 0f;
+        debris.moveSpeed = 1f;
     }
 
     void OnPlayerDispel(Debris debris, Vector3 resultingDirection)

@@ -32,6 +32,7 @@ public class Vacuum : MonoBehaviour
         totalCooldown = chargeCooldown * totalCharges;
 
         FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
+        FindObjectOfType<BlackHole>().PlayerEatenAction += OnPlayerEaten;
 
         DebrisLayer = LayerMask.GetMask("Debris");
     }
@@ -134,10 +135,10 @@ public class Vacuum : MonoBehaviour
                 DispelAction?.Invoke(debrisParent.GetChild(i).GetComponent<Debris>(), transform.up);
                 debrisParent.GetChild(i).parent = null;
 
-                //if (!dispelEffect.isPlaying)
-                //{
-                //    dispelEffect.Play();
-                //}
+                if (!dispelEffect.isPlaying)
+                {
+                    dispelEffect.Play();
+                }
             }
         }
     }
@@ -145,5 +146,20 @@ public class Vacuum : MonoBehaviour
     void OnGamePaused(bool pauseState)
     {
         enabled = !pauseState;
+
+        if (vacuumEffect.isPlaying)
+        {
+            vacuumEffect.Stop();
+        }
+
+        if (dispelEffect.isPlaying)
+        {
+            dispelEffect.Stop();
+        }
+    }
+
+    void OnPlayerEaten()
+    {
+        OnGamePaused(true);
     }
 }

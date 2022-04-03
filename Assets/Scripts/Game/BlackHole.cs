@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using static CoroutineHelper;
@@ -11,6 +12,8 @@ public class BlackHole : Actor
     [SerializeField] AnimationCurve scaleInterpolationCurve;
 
     IEnumerator expandCoroutine;
+
+    public event Action PlayerEatenAction;
 
     protected override void Awake()
     {
@@ -42,6 +45,10 @@ public class BlackHole : Actor
 
             expandCoroutine = Expand(DebrisScaleFactor);
             StartCoroutine(expandCoroutine);
+        }
+        else if (col.TryGetComponent(out Player player))
+        {
+            PlayerEatenAction?.Invoke();
         }
     }
 

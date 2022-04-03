@@ -3,18 +3,21 @@ using System.Collections;
 using UnityEngine;
 using static CoroutineHelper;
 
-public class Player : MonoBehaviour
+public class Player : Actor
 {
     public event Action GameOverAction;
     [SerializeField] AnimationCurve scaleInterpolationCurve;
 
-    void OnTriggerEnter2D(Collider2D coll)
+    protected override void Awake()
     {
-        if (coll.TryGetComponent(out BlackHole _))
-        {
-            StartCoroutine(ScaleToZero());
-            GetComponent<Vacuum>().enabled = false;
-        }
+        base.Awake();
+        FindObjectOfType<BlackHole>().PlayerEatenAction += OnPlayerEaten;
+    }
+
+    void OnPlayerEaten()
+    {
+        StartCoroutine(ScaleToZero());
+        GetComponent<Vacuum>().enabled = false;
     }
 
     public IEnumerator ScaleToZero()
