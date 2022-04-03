@@ -2,13 +2,14 @@ using UnityEngine;
 
 public abstract class Actor : MonoBehaviour
 {
-    public new Transform transform;
+    [HideInInspector] new public Transform transform;
+    protected SpriteRenderer spriteRenderer;
 
     protected Vector3 moveDirection;
-    [SerializeField] protected float speed;
 
     protected virtual void Awake()
     {
         transform = GetComponent<Transform>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 }

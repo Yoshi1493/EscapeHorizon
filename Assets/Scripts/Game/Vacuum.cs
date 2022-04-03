@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Vacuum : MonoBehaviour
@@ -11,6 +12,9 @@ public class Vacuum : MonoBehaviour
     const float FieldOfView = 30f;
     const float RangeOfView = 2f;
     const int RayDensity = 5;
+
+    public event Action<Debris> VacuumAction;
+    public event Action<Debris, Vector3> DispelAction;
 
     void Awake()
     {
@@ -56,18 +60,18 @@ public class Vacuum : MonoBehaviour
             if (hit)
             {
                 // debug
-                Debug.DrawRay(transform.position, RangeOfView * direction, Color.green);
+                //Debug.DrawRay(transform.position, RangeOfView * direction, Color.green);
 
                 Transform hitTransform = hit.transform;
-                print($"found {hitTransform.name}.");
 
                 // parent the hit gameobject with the debris parent transform
                 hitTransform.parent = debrisParent;
+                VacuumAction?.Invoke(hitTransform.GetComponent<Debris>());
             }
             else
             {
                 // debug
-                Debug.DrawRay(transform.position, RangeOfView * direction, Color.red);
+                //Debug.DrawRay(transform.position, RangeOfView * direction, Color.red);
             }
         }
     }
@@ -79,19 +83,10 @@ public class Vacuum : MonoBehaviour
         {
             for (int i = 0; i < debrisParent.childCount; i++)
             {
+                DispelAction?.Invoke(debrisParent.GetChild(i).GetComponent<Debris>(), transform.up);
                 debrisParent.GetChild(i).parent = null;
             }
         }
     }
 
-    Vector3 RotateVectorBy(Vector3 vector, float degrees)
-    {
-        Vector3 v = vector;
-        float radians = degrees * Mathf.Deg2Rad;
-
-        v.x = (Mathf.Cos(radians) * v.x) - (Mathf.Sin(radians) * v.y);
-        v.y = (Mathf.Sin(radians) * v.x) + (Mathf.Cos(radians) * v.y);
-
-        return v;
-    }
 }

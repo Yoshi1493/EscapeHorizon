@@ -21,7 +21,7 @@ public class PlayerMovement : Actor
     void GetMovementInput()
     {
         Vector3 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 moveDirection = Vector3.ClampMagnitude(mousePos - transform.position, 1f);
+        moveDirection = Vector3.ClampMagnitude(mousePos - transform.position, 1f);
         moveDirection.z = 0f;
 
         if (moveDirection.magnitude > MovementThreshold)
