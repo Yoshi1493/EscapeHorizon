@@ -14,6 +14,7 @@ public class Debris : Actor
 
     void OnEnable()
     {
+        this.gameObject.layer = 8;
         Vacuum vacuum = FindObjectOfType<Vacuum>();
         vacuum.VacuumAction += OnPlayerVacuum;
         vacuum.DispelAction += OnPlayerDispel;
@@ -42,22 +43,6 @@ public class Debris : Actor
     void Update()
     {
         Move();
-
-        if (this.gameObject.transform.parent != null)
-        {
-            if (this.gameObject.transform.parent.gameObject.name == "Debris")
-            {
-                this.gameObject.layer = 0;
-            }
-            else
-            {
-                this.gameObject.layer = 8;
-            }
-        }
-        else
-        {
-            this.gameObject.layer = 8;
-        }
     }
 
     void Move()
