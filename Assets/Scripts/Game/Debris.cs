@@ -21,6 +21,8 @@ public class Debris : Actor
         Vacuum vacuum = FindObjectOfType<Vacuum>();
         vacuum.VacuumAction += OnPlayerVacuum;
         vacuum.DispelAction += OnPlayerDispel;
+
+        FindObjectOfType<Player>().GameOverAction += OnGameOver;
     }
 
     void OnEnable()
@@ -55,7 +57,6 @@ public class Debris : Actor
 
     void OnPlayerDispel(Debris debris, Vector3 resultingDirection)
     {
-        // set moveDirection equal to player's direction
         debris.moveDirection = resultingDirection;
         debris.moveSpeed = DispelSpeed;
     }
@@ -115,5 +116,10 @@ public class Debris : Actor
     {
         base.OnGamePaused(pauseState);
         rigidbody.bodyType = pauseState ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+    }
+
+    void OnGameOver()
+    {
+        OnGamePaused(true);
     }
 }

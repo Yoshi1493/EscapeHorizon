@@ -18,6 +18,7 @@ public class DebrisSpawner : MonoBehaviour
     void Awake()
     {
         FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
+        FindObjectOfType<Player>().GameOverAction += OnGameOver;
     }
 
     void Update()
@@ -63,5 +64,10 @@ public class DebrisSpawner : MonoBehaviour
     void OnGamePaused(bool pauseState)
     {
         enabled = !pauseState;
+    }
+
+    void OnGameOver()
+    {
+        OnGamePaused(true);
     }
 }

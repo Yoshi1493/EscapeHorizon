@@ -15,6 +15,7 @@ public class Vacuum : MonoBehaviour
     private LayerMask DebrisLayer;
 
     [SerializeField] ParticleSystem vacuumEffect;
+    [SerializeField] ParticleSystem dispelEffect;
 
     public event Action<Debris> VacuumAction;
     public event Action<Debris, Vector3> DispelAction;
@@ -132,6 +133,11 @@ public class Vacuum : MonoBehaviour
             {
                 DispelAction?.Invoke(debrisParent.GetChild(i).GetComponent<Debris>(), transform.up);
                 debrisParent.GetChild(i).parent = null;
+
+                //if (!dispelEffect.isPlaying)
+                //{
+                //    dispelEffect.Play();
+                //}
             }
         }
     }

@@ -7,9 +7,16 @@ public class BlackHole : Actor
     const float DebrisScaleFactor = 0.5f;
     const float ConstantScaleFactor = 0.05f;
 
+    ParticleSystem visualEffect;
     [SerializeField] AnimationCurve scaleInterpolationCurve;
 
     IEnumerator expandCoroutine;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        visualEffect = GetComponentInChildren<ParticleSystem>();
+    }
 
     void Update()
     {
@@ -20,6 +27,7 @@ public class BlackHole : Actor
             newScale.z = 1f;
 
             transform.localScale = newScale;
+            visualEffect.transform.localScale = newScale;
         }
     }
 
@@ -50,15 +58,16 @@ public class BlackHole : Actor
         while (transform.localScale != endScale)
         {
             float lerpProgress = currentLerpTime / totalLerpTime;
+            Vector3 newScale = Vector3.Lerp(startScale, endScale, scaleInterpolationCurve.Evaluate(lerpProgress));
 
-            transform.localScale = Vector3.Lerp(startScale, endScale, scaleInterpolationCurve.Evaluate(lerpProgress));
+            transform.localScale = newScale;
+            visualEffect.transform.localScale = newScale;
 
             yield return EndOfFrame;
             currentLerpTime += Time.deltaTime;
         }
 
         transform.localScale = endScale;
-        print(transform.localScale);
         expandCoroutine = null;
     }
 }

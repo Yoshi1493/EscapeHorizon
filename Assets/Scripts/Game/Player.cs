@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
         if (coll.TryGetComponent(out BlackHole _))
         {
             StartCoroutine(ScaleToZero());
+            GetComponent<Vacuum>().enabled = false;
         }
     }
 
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
             yield return EndOfFrame;
             currentLerpTime += Time.deltaTime;
         }
+
+        yield return WaitForSeconds(1f);
 
         // call gameover events
         GameOverAction?.Invoke();
