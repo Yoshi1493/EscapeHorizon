@@ -11,5 +11,12 @@ public abstract class Actor : MonoBehaviour
     {
         transform = GetComponent<Transform>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
+    }
+
+    void OnGamePaused(bool pauseState)
+    {
+        enabled = !pauseState;
     }
 }

@@ -1,12 +1,11 @@
-using System.Collections;
 using UnityEngine;
-using static CoroutineHelper;
 
 public class DebrisSpawner : MonoBehaviour
 {
     const float MinSpawnInterval = 1.0f;
     const float MaxSpawnInterval = 10.0f;
     float spawnInterval = MaxSpawnInterval;
+    float timer = 0f;
 
     const int minSpawnCountPerWave = 1;
     const int maxSpawnCountPerWave = 5;
@@ -16,9 +15,14 @@ public class DebrisSpawner : MonoBehaviour
 
     [SerializeField] AnimationCurve spawnIntervalInterpolation;
 
-    IEnumerator Start()
+    void Awake()
     {
-        while (enabled)
+        FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
+    }
+
+    void Update()
+    {
+        if (timer <= 0f)
         {
             int randSpawnAmount = Random.Range(minSpawnCountPerWave, maxSpawnCountPerWave);
 
@@ -39,14 +43,23 @@ public class DebrisSpawner : MonoBehaviour
             if (currentWave <= maxWave)
             {
                 currentWave++;
+
+                // reduce spawn interval based on interpolation curve
+                float lerpProgress = (float)currentWave / maxWave;
+                spawnInterval = Mathf.Lerp(MinSpawnInterval, MaxSpawnInterval, spawnIntervalInterpolation.Evaluate(lerpProgress));
             }
 
-            // reduce spawn interval based on interpolation curve
-            float lerpProgress = (float)currentWave / maxWave;
-            spawnInterval = Mathf.Lerp(MinSpawnInterval, MaxSpawnInterval, spawnIntervalInterpolation.Evaluate(lerpProgress));
-
-            yield return WaitForSeconds(spawnInterval);
+            // reset timer
+            timer = spawnInterval;
+        }
+        else
+        {
+            timer -= Time.deltaTime;
         }
     }
 
+    void OnGamePaused(bool pauseState)
+    {
+        enabled = !pauseState;
+    }
 }

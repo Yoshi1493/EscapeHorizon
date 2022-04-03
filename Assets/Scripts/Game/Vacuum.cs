@@ -22,14 +22,14 @@ public class Vacuum : MonoBehaviour
     [SerializeField] float chargeCooldown = 10.0f;
     [SerializeField] float totalCooldown;
 
-
-
     void Awake()
     {
         transform = GetComponent<Transform>();
         moveSpeed.Value = OriginalMoveSpeed;
 
         totalCooldown = chargeCooldown * totalCharges;
+
+        FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
     }
 
     void Update()
@@ -133,4 +133,8 @@ public class Vacuum : MonoBehaviour
         }
     }
 
+    void OnGamePaused(bool pauseState)
+    {
+        enabled = !pauseState;
+    }
 }
