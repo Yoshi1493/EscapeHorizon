@@ -4903,11 +4903,11 @@ GameObject:
   - component: {fileID: 1485731114724620488}
   - component: {fileID: 1863510471609810813}
   - component: {fileID: 8609521301211044660}
-  - component: {fileID: 1722407100934439126}
+  - component: {fileID: 7804069198767879387}
   - component: {fileID: 642958471248633725}
   - component: {fileID: 2876794815852960072}
   - component: {fileID: 6677410937765877527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5003,8 +5003,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &1722407100934439126
-BoxCollider2D:
+--- !u!58 &7804069198767879387
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5017,18 +5017,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.64, y: 0.64}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
-  m_EdgeRadius: 0
+  m_Radius: 0.16
 --- !u!114 &642958471248633725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5041,6 +5031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af613e98029478e4e944fd0c89706a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  rigidbody: {fileID: 0}
+  collider: {fileID: 0}
   scaleInterpolationCurve:
     serializedVersion: 2
     m_Curve:
