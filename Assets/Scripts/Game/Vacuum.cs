@@ -13,13 +13,16 @@ public class Vacuum : MonoBehaviour
     const float RangeOfView = 2f;
     const int RayDensity = 9;
 
+    [SerializeField] ParticleSystem vacuumEffect;
+
     public event Action<Debris> VacuumAction;
     public event Action<Debris, Vector3> DispelAction;
 
+    [SerializeField] int totalCharges = 3;
+    [SerializeField] float chargeCooldown = 10.0f;
+    float totalCooldown;
 
-    public int totalCharges = 3;
-    public float chargeCooldown = 10.0f;
-    public float totalCooldown;
+
 
     void Awake()
     {
@@ -27,7 +30,6 @@ public class Vacuum : MonoBehaviour
         moveSpeed.Value = OriginalMoveSpeed;
 
         totalCooldown = chargeCooldown * totalCharges;
-
     }
 
     void Update()
@@ -36,6 +38,7 @@ public class Vacuum : MonoBehaviour
         {
             UpdateCharge();
         }
+
         GetLeftMouseButtonInput();
         GetRightMouseButtonInput();
     }
@@ -54,17 +57,31 @@ public class Vacuum : MonoBehaviour
         if (debrisParent.childCount == 0 && Input.GetMouseButton(0) && totalCooldown > chargeCooldown)
         {
             moveSpeed.Value = 0f;
+
+            if (!vacuumEffect.isPlaying)
+            {
+                vacuumEffect.Play();
+            }
+
             CheckForCollisions();
         }
         else
         {
             moveSpeed.Value = OriginalMoveSpeed;
         }
+
+        // stop the particle system if it hasn't been stopped already
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (!vacuumEffect.isStopped)
+            {
+                vacuumEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            }
+        }
     }
 
     void CheckForCollisions()
     {
-        bool hitflag = false;
         for (int i = 0; i < RayDensity; i++)
         {
             // find how many degrees to stagger each raycast by
@@ -81,25 +98,25 @@ public class Vacuum : MonoBehaviour
 
             if (hit)
             {
-                hitflag = true;
                 // debug
-                //Debug.DrawRay(transform.position, RangeOfView * direction, Color.green);
+                Debug.DrawRay(transform.position, RangeOfView * direction, Color.green);
 
                 Transform hitTransform = hit.transform;
 
                 // parent the hit gameobject with the debris parent transform
                 hitTransform.parent = debrisParent;
+
+                // invoke action, decrement charge
                 VacuumAction?.Invoke(hitTransform.GetComponent<Debris>());
+                totalCooldown -= chargeCooldown;
+
+                return;
             }
             else
             {
                 // debug
-                //Debug.DrawRay(transform.position, RangeOfView * direction, Color.red);
+                Debug.DrawRay(transform.position, RangeOfView * direction, Color.red);
             }
-        }
-        if (hitflag)
-        {
-            totalCooldown -= chargeCooldown;
         }
     }
 
