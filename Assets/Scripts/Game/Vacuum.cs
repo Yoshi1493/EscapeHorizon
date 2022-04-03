@@ -9,28 +9,49 @@ public class Vacuum : MonoBehaviour
     [SerializeField] FloatObject moveSpeed;
     const float OriginalMoveSpeed = 5f;
 
-    const float FieldOfView = 30f;
+    const float FieldOfView = 45f;
     const float RangeOfView = 2f;
-    const int RayDensity = 5;
+    const int RayDensity = 9;
 
     public event Action<Debris> VacuumAction;
     public event Action<Debris, Vector3> DispelAction;
+
+
+    public int totalCharges = 3;
+    public float chargeCooldown = 10.0f;
+    public float totalCooldown;
 
     void Awake()
     {
         transform = GetComponent<Transform>();
         moveSpeed.Value = OriginalMoveSpeed;
+
+        totalCooldown = chargeCooldown * totalCharges;
+
     }
 
     void Update()
     {
+        if (totalCooldown <= (chargeCooldown * totalCharges))
+        {
+            UpdateCharge();
+        }
         GetLeftMouseButtonInput();
         GetRightMouseButtonInput();
     }
 
+    void UpdateCharge()
+    {
+        totalCooldown += Time.deltaTime;
+        if (totalCooldown >= (chargeCooldown * totalCharges))
+        {
+            totalCooldown = (chargeCooldown * totalCharges);
+        }
+    }
+
     void GetLeftMouseButtonInput()
     {
-        if (debrisParent.childCount == 0 && Input.GetMouseButton(0))
+        if (debrisParent.childCount == 0 && Input.GetMouseButton(0) && totalCooldown > chargeCooldown)
         {
             moveSpeed.Value = 0f;
             CheckForCollisions();
@@ -43,6 +64,7 @@ public class Vacuum : MonoBehaviour
 
     void CheckForCollisions()
     {
+        bool hitflag = false;
         for (int i = 0; i < RayDensity; i++)
         {
             // find how many degrees to stagger each raycast by
@@ -59,6 +81,7 @@ public class Vacuum : MonoBehaviour
 
             if (hit)
             {
+                hitflag = true;
                 // debug
                 //Debug.DrawRay(transform.position, RangeOfView * direction, Color.green);
 
@@ -73,6 +96,10 @@ public class Vacuum : MonoBehaviour
                 // debug
                 //Debug.DrawRay(transform.position, RangeOfView * direction, Color.red);
             }
+        }
+        if (hitflag)
+        {
+            totalCooldown -= chargeCooldown;
         }
     }
 
