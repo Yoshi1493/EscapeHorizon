@@ -538,8 +538,12 @@ PrefabInstance:
       value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSize
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_fontSizeBase
-      value: 64
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683626, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -828,8 +832,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 57f24697be2ff344388585653570461a, type: 2}
+  m_sharedMaterial: {fileID: 3008586750725705883, guid: 57f24697be2ff344388585653570461a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -853,8 +857,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 96
-  m_fontSizeBase: 96
+  m_fontSize: 112
+  m_fontSizeBase: 112
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1001,6 +1005,14 @@ PrefabInstance:
     - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_text
       value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSize
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683626, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1160,6 +1172,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSize
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 84
+      objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683626, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1304,7 +1324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7316779353834318282, guid: 6c5cbc4079922964aa560c54ce27db53, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7316779353834318282, guid: 6c5cbc4079922964aa560c54ce27db53, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1466,8 +1486,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ludum Dare 50
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d6a24e39600491f4990c0fc418234167, type: 2}
+  m_sharedMaterial: {fileID: -1966086941955982987, guid: d6a24e39600491f4990c0fc418234167, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1640,6 +1660,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Play
       objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSize
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472791045279683625, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 84
+      objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683626, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1775,7 +1803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7316779353834318282, guid: 6c5cbc4079922964aa560c54ce27db53, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7316779353834318282, guid: 6c5cbc4079922964aa560c54ce27db53, type: 3}
       propertyPath: m_AnchoredPosition.y
