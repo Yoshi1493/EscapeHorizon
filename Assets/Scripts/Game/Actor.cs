@@ -3,8 +3,8 @@ using UnityEngine;
 public abstract class Actor : MonoBehaviour
 {
     [HideInInspector] new public Transform transform;
-    new protected Rigidbody2D rigidbody;
-    new protected Collider2D collider;
+    [HideInInspector] new public Rigidbody2D rigidbody;
+    [HideInInspector] new public Collider2D collider;
     protected SpriteRenderer spriteRenderer;
 
     protected Vector3 moveDirection;

@@ -36,6 +36,7 @@ public class DebrisSpawner : MonoBehaviour
                 debris.transform.SetPositionAndRotation(randPos, Quaternion.Euler(randRot * Vector3.forward));
                 debris.transform.localScale = Vector3.one;
 
+                debris.collider.enabled = true;
                 debris.enabled = true;
                 debris.gameObject.SetActive(true);
             }
