@@ -12,6 +12,7 @@ public class Vacuum : MonoBehaviour
     const float FieldOfView = 45f;
     const float RangeOfView = 2f;
     const int RayDensity = 9;
+    private LayerMask DebrisLayer;
 
     [SerializeField] ParticleSystem vacuumEffect;
 
@@ -30,6 +31,8 @@ public class Vacuum : MonoBehaviour
         totalCooldown = chargeCooldown * totalCharges;
 
         FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
+
+        DebrisLayer = LayerMask.GetMask("Debris");
     }
 
     void Update()
@@ -94,7 +97,7 @@ public class Vacuum : MonoBehaviour
             Vector3 direction = transform.up.RotateVectorBy(theta);
 
             // perform raycast
-            var hit = Physics2D.Raycast(transform.position, direction, RangeOfView);
+            var hit = Physics2D.Raycast(transform.position, direction, RangeOfView, DebrisLayer);
 
             if (hit)
             {
