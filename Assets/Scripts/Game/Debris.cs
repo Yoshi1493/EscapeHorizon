@@ -9,45 +9,43 @@ public class Debris : Actor
     const float MaxInitialSpeed = 3f;
     const float DispelSpeed = 10f;
 
-    IEnumerator rotateCoroutine;
-    float RotationSpeed { get => Random.Range(-30f, 30f); }
+    float rotationSpeed;
 
-    void OnEnable()
+    [SerializeField] AnimationCurve scaleInterpolationCurve;
+    IEnumerator scaleCoroutine;
+
+    protected override void Awake()
     {
-        this.gameObject.layer = 8;
+        base.Awake();
+
         Vacuum vacuum = FindObjectOfType<Vacuum>();
         vacuum.VacuumAction += OnPlayerVacuum;
         vacuum.DispelAction += OnPlayerDispel;
+    }
+
+    void OnEnable()
+    {
+        gameObject.layer = 8;
 
         moveDirection = transform.up;
         moveSpeed = Random.Range(MinInitialSpeed, MaxInitialSpeed);
-
-        if (rotateCoroutine != null)
-        {
-            StopCoroutine(rotateCoroutine);
-        }
-
-        rotateCoroutine = Rotate(RotationSpeed);
-        StartCoroutine(rotateCoroutine);
-    }
-
-    IEnumerator Rotate(float rotationSpeed)
-    {
-        while (enabled)
-        {
-            spriteRenderer.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-            yield return EndOfFrame;
-        }
+        rotationSpeed = Random.Range(-30f, 30f);
     }
 
     void Update()
     {
         Move();
+        Rotate();
     }
 
     void Move()
     {
         transform.Translate(moveSpeed * Time.deltaTime * moveDirection, Space.World);
+    }
+
+    void Rotate()
+    {
+        spriteRenderer.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
     void OnPlayerVacuum(Debris debris)
@@ -57,7 +55,65 @@ public class Debris : Actor
 
     void OnPlayerDispel(Debris debris, Vector3 resultingDirection)
     {
+        // set moveDirection equal to player's direction
         debris.moveDirection = resultingDirection;
         debris.moveSpeed = DispelSpeed;
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        // check if the other trigger is the black hole
+        if (coll.TryGetComponent(out BlackHole _))
+        {
+            if (scaleCoroutine != null)
+            {
+                StopCoroutine(scaleCoroutine);
+            }
+
+            scaleCoroutine = ScaleToZero();
+            StartCoroutine(scaleCoroutine);
+        }
+    }
+
+    IEnumerator ScaleToZero()
+    {
+        // disable movement input
+        moveDirection = Vector3.zero;
+        moveSpeed = 0f;
+
+        // disable collider, unparent from everything
+        collider.enabled = false;
+        transform.parent = null;
+
+        float currentLerpTime = 0f;
+        float totalLerpTime = 1f;
+
+        Vector3 startPos = transform.position;
+        Vector3 startScale = transform.localScale;
+
+        // lerp position and scale to (0, 0, 0)
+        while (transform.localScale != Vector3.zero)
+        {
+            float lerpProgress = currentLerpTime / totalLerpTime;
+            float actualProgress = scaleInterpolationCurve.Evaluate(lerpProgress);
+
+            transform.position = Vector3.Lerp(startPos, Vector3.zero, actualProgress);
+            spriteRenderer.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, actualProgress);
+
+            yield return EndOfFrame;
+            currentLerpTime += Time.deltaTime;
+
+            // increase rotationSpeed (for the sake of polish)
+            rotationSpeed += 10f * Time.deltaTime;
+        }
+
+        // return to object pool
+        DebrisPool.Instance.ReturnToPool(this);
+    }
+
+    protected override void OnGamePaused(bool pauseState)
+    {
+        base.OnGamePaused(pauseState);
+        rigidbody.bodyType = pauseState ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
     }
 }

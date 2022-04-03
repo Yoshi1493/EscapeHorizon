@@ -1,35 +1,63 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static CoroutineHelper;
 
-public class BlackHole : MonoBehaviour
+public class BlackHole : Actor
 {
-    private float xScale;
-    private float yScale;
-    private float scaleIncrement = 0.5f;
-    void Start()
-    {
-        xScale = this.gameObject.transform.localScale.x;
-        yScale = this.gameObject.transform.localScale.y;
-    }
+    const float DebrisScaleFactor = 0.5f;
+    const float ConstantScaleFactor = 0.05f;
+
+    [SerializeField] AnimationCurve scaleInterpolationCurve;
+
+    IEnumerator expandCoroutine;
 
     void Update()
     {
+        if (expandCoroutine == null)
+        {
+            Vector2 newScale = transform.localScale;
+            newScale += ConstantScaleFactor * Time.deltaTime * Vector2.one;
 
+            transform.localScale = newScale;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == 8)
+        if (col.TryGetComponent(out Debris debris))
         {
-            if (col.TryGetComponent(out Debris debris))
+            if (expandCoroutine != null)
             {
-                DebrisPool.Instance.ReturnToPool(debris);
+                StopCoroutine(expandCoroutine);
             }
-            xScale += scaleIncrement;
-            yScale += scaleIncrement;
-            this.gameObject.transform.localScale = new Vector3(xScale, yScale, this.gameObject.transform.localScale.z);
+
+            expandCoroutine = Expand(DebrisScaleFactor);
+            StartCoroutine(expandCoroutine);
         }
     }
 
+    IEnumerator Expand(float amount)
+    {
+        float currentLerpTime = 0f;
+        float totalLerpTime = amount;
+
+        Vector3 startScale = transform.localScale;
+        Vector3 endScale = startScale;
+        endScale.x += amount;
+        endScale.y += amount;
+
+        while (transform.localScale != endScale)
+        {
+            float lerpProgress = currentLerpTime / totalLerpTime;
+
+            transform.localScale = Vector3.Lerp(startScale, endScale, scaleInterpolationCurve.Evaluate(lerpProgress));
+
+            yield return EndOfFrame;
+            currentLerpTime += Time.deltaTime;
+        }
+
+        transform.localScale = endScale;
+
+        expandCoroutine = null;
+    }
 }

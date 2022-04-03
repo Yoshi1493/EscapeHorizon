@@ -34,6 +34,7 @@ public class DebrisSpawner : MonoBehaviour
                 Vector3 randPos = 10f * Random.insideUnitCircle;
                 float randRot = Random.Range(0f, 360f);
                 debris.transform.SetPositionAndRotation(randPos, Quaternion.Euler(randRot * Vector3.forward));
+                debris.transform.localScale = Vector3.one;
 
                 debris.enabled = true;
                 debris.gameObject.SetActive(true);

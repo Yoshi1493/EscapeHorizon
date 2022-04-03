@@ -20,7 +20,7 @@ public class Vacuum : MonoBehaviour
 
     [SerializeField] int totalCharges = 3;
     [SerializeField] float chargeCooldown = 10.0f;
-    [SerializeField] float totalCooldown;
+    float totalCooldown;
 
     void Awake()
     {
