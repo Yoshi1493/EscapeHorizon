@@ -15,8 +15,9 @@ public class BlackHole : Actor
     {
         if (expandCoroutine == null)
         {
-            Vector2 newScale = transform.localScale;
-            newScale += ConstantScaleFactor * Time.deltaTime * Vector2.one;
+            Vector3 newScale = transform.localScale;
+            newScale += ConstantScaleFactor * Time.deltaTime * Vector3.one;
+            newScale.z = 1f;
 
             transform.localScale = newScale;
         }
@@ -57,7 +58,7 @@ public class BlackHole : Actor
         }
 
         transform.localScale = endScale;
-
+        print(transform.localScale);
         expandCoroutine = null;
     }
 }
