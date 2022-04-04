@@ -50,6 +50,6 @@ public abstract class Menu : MonoBehaviour
 
     public void LoadScene(int sceneIndex)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
+        StartCoroutine(FindObjectOfType<BackgroundController>().LoadSceneAfterDelay(sceneIndex));
     }
 }
