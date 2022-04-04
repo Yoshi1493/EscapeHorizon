@@ -1,7 +1,12 @@
+using System.Linq;
 using UnityEngine;
+using static VectorHelper;
 
 public class DebrisSpawner : MonoBehaviour
 {
+    [SerializeField] PolygonCollider2D spawnBoundaries;
+    Vector3 spawnRange;
+
     const float MinSpawnInterval = 1.0f;
     const float MaxSpawnInterval = 10.0f;
     float spawnInterval = MaxSpawnInterval;
@@ -19,6 +24,9 @@ public class DebrisSpawner : MonoBehaviour
     {
         FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
         FindObjectOfType<Player>().GameOverAction += OnGameOver;
+
+        spawnRange.x = Mathf.Max(spawnBoundaries.points.Select(p => p.x).ToArray());
+        spawnRange.y = Mathf.Max(spawnBoundaries.points.Select(p => p.y).ToArray());
     }
 
     void Update()
@@ -32,11 +40,11 @@ public class DebrisSpawner : MonoBehaviour
             {
                 var debris = DebrisPool.Instance.Get();
 
-                Vector3 randPos = 10f * Random.insideUnitCircle;
-                float randRot = Random.Range(0f, 360f);
-                debris.transform.SetPositionAndRotation(randPos, Quaternion.Euler(randRot * Vector3.forward));
+                // init. position and scale
+                debris.transform.position = GetRandomSpawnPosition(-spawnRange, spawnRange);
                 debris.transform.localScale = Vector3.one;
 
+                // re-enable components
                 debris.collider.enabled = true;
                 debris.enabled = true;
                 debris.gameObject.SetActive(true);

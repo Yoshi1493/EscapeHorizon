@@ -13,4 +13,19 @@ public static class VectorHelper
         return vector;
     }
 
+    public static Vector3 GetRandomSpawnPosition(Vector3 minSpawnRange, Vector3 maxSpawnRange)
+    {
+        Vector3 v = Random.value > 0.5f ? minSpawnRange : maxSpawnRange;        
+
+        if (Random.value > 0.5f)
+        {
+            v.x = Random.Range(minSpawnRange.x, maxSpawnRange.x);
+        }
+        else
+        {
+            v.y = Random.Range(minSpawnRange.y, maxSpawnRange.y);
+        }
+
+        return v;
+    }
 }
