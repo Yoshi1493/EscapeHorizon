@@ -133,6 +133,7 @@ public class Debris : Actor
             rotationSpeed += 10f * Time.deltaTime;
         }
 
+        scaleCoroutine = null;
 
         // return to object pool
         DebrisPool.Instance.ReturnToPool(this);
