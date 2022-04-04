@@ -50,6 +50,7 @@ public class Debris : Actor
             moveDirection = transform.parent.position - transform.position;
         }
 
+        moveDirection.Normalize();
         transform.Translate(moveSpeed * Time.deltaTime * moveDirection, Space.World);
     }
 
