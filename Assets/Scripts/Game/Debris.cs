@@ -79,6 +79,7 @@ public class Debris : Actor
         if (coll.TryGetComponent(out BlackHole _))
         {
             ScaleToZero();
+            AudioManager.Instance.PlaySound("debris-die");
         }
     }
 

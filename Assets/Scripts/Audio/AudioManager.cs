@@ -21,8 +21,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource music;
     [SerializeField] SoundEffect[] soundEffects;
 
+    public static AudioManager Instance { get; private set; }
+
     void Awake()
     {
+        if (Instance == null) Instance = this;
+
         //init.sound effects
         foreach (var sound in soundEffects)
         {
@@ -63,7 +67,7 @@ public class AudioManager : MonoBehaviour
     IEnumerator _FadeVolume(float targetVolume, float fadeDuration)
     {
         float currentLerpTime = 0f;
-       float startVolume = playerSettings.musicVolume.Value;
+        float startVolume = playerSettings.musicVolume.Value;
 
         while (music.volume != targetVolume)
         {

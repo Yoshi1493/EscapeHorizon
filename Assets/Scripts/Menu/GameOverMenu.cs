@@ -15,6 +15,7 @@ public class GameOverMenu : Menu
     void OnGameOver()
     {
         Open();
+        AudioManager.Instance.PlaySound("gameover");
 
         string timeSurvived = FindObjectOfType<TimeCounter>().timeText.text.Substring(MonospaceTag.Length);
         timeSurvivedText.text = $"Time survived:\n{timeSurvived}";

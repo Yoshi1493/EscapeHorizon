@@ -18,6 +18,7 @@ public class Player : Actor
     {
         StartCoroutine(ScaleToZero());
         GetComponent<Vacuum>().enabled = false;
+        AudioManager.Instance.PlaySound("player-die");
     }
 
     public IEnumerator ScaleToZero()

@@ -91,6 +91,9 @@ public class Vacuum : MonoBehaviour
                 // invoke action
                 VacuumAction?.Invoke(hitTransform.GetComponent<Debris>());
 
+                // play sfx
+                AudioManager.Instance.PlaySound("vacuum");
+
                 return;
             }
         }
@@ -104,12 +107,16 @@ public class Vacuum : MonoBehaviour
             for (int i = 0; i < debrisParent.childCount; i++)
             {
                 DispelAction?.Invoke(debrisParent.GetChild(i).GetComponent<Debris>(), transform.up);
+                AudioManager.Instance.PlaySound("dispel");
+
                 debrisParent.GetChild(i).parent = null;
 
-                if (!dispelEffect.isPlaying)
+                if (dispelEffect.isPlaying)
                 {
-                    dispelEffect.Play();
+                    dispelEffect.Stop();
                 }
+
+                dispelEffect.Play();
             }
         }
     }
