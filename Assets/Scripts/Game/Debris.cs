@@ -85,7 +85,11 @@ public class Debris : Actor
     void OnTriggerExit2D(Collider2D _)
     {
         transform.parent = originalParent;
-        ScaleToZero();
+        
+        if (scaleCoroutine == null)
+        {
+            DebrisPool.Instance.ReturnToPool(this);
+        }
     }
 
     void ScaleToZero()
@@ -128,6 +132,7 @@ public class Debris : Actor
             // increase rotationSpeed (for the sake of polish)
             rotationSpeed += 10f * Time.deltaTime;
         }
+
 
         // return to object pool
         DebrisPool.Instance.ReturnToPool(this);
