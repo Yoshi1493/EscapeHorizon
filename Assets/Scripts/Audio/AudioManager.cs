@@ -17,9 +17,10 @@ public class AudioManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] Transform soundEffectParent;
-    [SerializeField] AudioSource music;
+    [SerializeField] AudioSource[] musicTracks;
     [SerializeField] SoundEffect[] soundEffects;
+
+    [SerializeField] Transform soundEffectParent;
 
     public static AudioManager Instance { get; private set; }
 
@@ -38,7 +39,10 @@ public class AudioManager : MonoBehaviour
 
     public void UpdateMusicVolume()
     {
-        music.volume = playerSettings.musicVolume.Value;
+        for (int i = 0; i < musicTracks.Length; i++)
+        {
+            musicTracks[i].volume = playerSettings.musicVolume.Value;
+        }
     }
 
     public void PlaySound(string name)
@@ -69,28 +73,34 @@ public class AudioManager : MonoBehaviour
         float currentLerpTime = 0f;
         float startVolume = playerSettings.musicVolume.Value;
 
-        while (music.volume != targetVolume)
+        while (musicTracks[0].volume != targetVolume)
         {
-            float lerpProgress = currentLerpTime / fadeDuration;
-            music.volume = Mathf.Lerp(startVolume, targetVolume, lerpProgress);
-
-            yield return EndOfFrame;
-            currentLerpTime += Time.deltaTime;
+            for (int i = 0; i < musicTracks.Length; i++)
+            {
+                float lerpProgress = currentLerpTime / fadeDuration;
+                musicTracks[i].volume = Mathf.Lerp(startVolume, targetVolume, lerpProgress);
+                print($"volume of {musicTracks[i].name}: {musicTracks[i].volume}");
+                yield return EndOfFrame;
+                currentLerpTime += Time.deltaTime;
+            }
         }
     }
 
     IEnumerator _FadePitch(float targetPitch, float fadeDuration)
     {
         float currentLerpTime = 0f;
-        float startPitch = playerSettings.soundVolume.Value;
+        float startPitch = musicTracks[0].pitch;
 
-        while (music.pitch != targetPitch)
+        while (musicTracks[0].pitch != targetPitch)
         {
-            float lerpProgress = currentLerpTime / fadeDuration;
-            music.pitch = Mathf.Lerp(startPitch, targetPitch, lerpProgress);
+            for (int i = 0; i < musicTracks.Length; i++)
+            {
+                float lerpProgress = currentLerpTime / fadeDuration;
+                musicTracks[i].pitch = Mathf.Lerp(startPitch, targetPitch, lerpProgress);
 
-            yield return EndOfFrame;
-            currentLerpTime += Time.deltaTime;
+                yield return EndOfFrame;
+                currentLerpTime += Time.deltaTime;
+            }
         }
     }
 

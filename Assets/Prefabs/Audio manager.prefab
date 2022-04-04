@@ -204,8 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 11400000, guid: 527634d1d27d7074b8155226340d18b5, type: 2}
-  soundEffectParent: {fileID: 587782676647815904}
-  music: {fileID: 587782675926451936}
+  musicTracks:
+  - {fileID: 587782675926451936}
   soundEffects:
   - clip: {fileID: 8300000, guid: c54201b0584b8964fac51a8cc52978b1, type: 3}
     source: {fileID: 0}
@@ -213,6 +213,7 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: a3fde22b7388d194da00249e04bb137c, type: 3}
     source: {fileID: 0}
     name: 
+  soundEffectParent: {fileID: 587782676647815904}
 --- !u!1 &587782676647815905
 GameObject:
   m_ObjectHideFlags: 0

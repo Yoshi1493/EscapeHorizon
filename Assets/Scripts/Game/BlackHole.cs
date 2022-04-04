@@ -49,6 +49,9 @@ public class BlackHole : Actor
         else if (col.TryGetComponent(out Player player))
         {
             PlayerEatenAction?.Invoke();
+
+            AudioManager.Instance.FadeMusicVolume(0f, fadeDuration: 3f);
+            AudioManager.Instance.FadeMusicPitch(0f, fadeDuration: 3f);
         }
     }
 
