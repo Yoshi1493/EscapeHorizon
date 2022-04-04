@@ -40,7 +40,6 @@ public class Player : Actor
             transform.position = Vector3.Lerp(startPos, Vector3.zero, actualProgress);
             transform.localScale = Vector3.Lerp(startScale, Vector3.zero, actualProgress);
             spriteRenderer.color = Color.Lerp(Color.white, Color.black, actualProgress);
-            print(spriteRenderer.color);
 
             yield return EndOfFrame;
             currentLerpTime += Time.deltaTime;

@@ -20,16 +20,10 @@ public class Vacuum : MonoBehaviour
     public event Action<Debris> VacuumAction;
     public event Action<Debris, Vector3> DispelAction;
 
-    [SerializeField] int totalCharges = 3;
-    [SerializeField] float chargeCooldown = 10.0f;
-    float totalCooldown;
-
     void Awake()
     {
         transform = GetComponent<Transform>();
         moveSpeed.Value = OriginalMoveSpeed;
-
-        totalCooldown = chargeCooldown * totalCharges;
 
         FindObjectOfType<PauseHandler>().GamePauseAction += OnGamePaused;
         FindObjectOfType<BlackHole>().PlayerEatenAction += OnPlayerEaten;
@@ -39,27 +33,13 @@ public class Vacuum : MonoBehaviour
 
     void Update()
     {
-        if (totalCooldown <= (chargeCooldown * totalCharges))
-        {
-            UpdateCharge();
-        }
-
         GetLeftMouseButtonInput();
         GetRightMouseButtonInput();
     }
 
-    void UpdateCharge()
-    {
-        totalCooldown += Time.deltaTime;
-        if (totalCooldown >= (chargeCooldown * totalCharges))
-        {
-            totalCooldown = (chargeCooldown * totalCharges);
-        }
-    }
-
     void GetLeftMouseButtonInput()
     {
-        if (debrisParent.childCount == 0 && Input.GetMouseButton(0) && totalCooldown > chargeCooldown)
+        if (debrisParent.childCount == 0 && Input.GetMouseButton(0))
         {
             moveSpeed.Value = 0f;
 
@@ -103,24 +83,15 @@ public class Vacuum : MonoBehaviour
 
             if (hit)
             {
-                // debug
-                Debug.DrawRay(transform.position, RangeOfView * direction, Color.green);
-
                 Transform hitTransform = hit.transform;
 
                 // parent the hit gameobject with the debris parent transform
                 hitTransform.parent = debrisParent;
 
-                // invoke action, decrement charge
+                // invoke action
                 VacuumAction?.Invoke(hitTransform.GetComponent<Debris>());
-                totalCooldown -= chargeCooldown;
 
                 return;
-            }
-            else
-            {
-                // debug
-                Debug.DrawRay(transform.position, RangeOfView * direction, Color.red);
             }
         }
     }
