@@ -9,6 +9,8 @@ public class PauseHandler : MonoBehaviour
     void Awake()
     {
         GamePauseAction += OnGamePaused;
+
+        FindObjectOfType<BlackHole>().PlayerEatenAction += OnPlayerEaten;
     }
 
     void Update()
@@ -27,5 +29,10 @@ public class PauseHandler : MonoBehaviour
     void OnGamePaused(bool pauseState)
     {
         isPaused = pauseState;
+    }
+
+    void OnPlayerEaten()
+    {
+        enabled = false;
     }
 }
