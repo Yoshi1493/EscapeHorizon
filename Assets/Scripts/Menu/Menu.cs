@@ -4,10 +4,12 @@ using UnityEngine;
 public abstract class Menu : MonoBehaviour
 {
     protected Canvas thisMenu;
+    AudioManager audioManager;
 
     protected virtual void Awake()
     {
         thisMenu = GetComponent<Canvas>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void Open()
@@ -50,6 +52,11 @@ public abstract class Menu : MonoBehaviour
 
     public void LoadScene(int sceneIndex)
     {
-        StartCoroutine(FindObjectOfType<BackgroundController>().LoadSceneAfterDelay(sceneIndex));
+        StartCoroutine(FindObjectOfType<BackgroundController>().LoadSceneAfterFade(sceneIndex));
+    }
+
+    public void PlaySound(string name)
+    {
+        audioManager.PlaySound(name);
     }
 }

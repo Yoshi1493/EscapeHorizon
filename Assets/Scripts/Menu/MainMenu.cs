@@ -1,13 +1,7 @@
-using UnityEngine;
-
 public class MainMenu : Menu
 {
     public void OnSelectQuit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        StartCoroutine(FindObjectOfType<BackgroundController>().LoadSceneAfterFade(-1, fadeDuration: 2f));
     }
 }

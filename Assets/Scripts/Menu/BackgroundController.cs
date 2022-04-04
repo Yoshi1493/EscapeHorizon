@@ -6,21 +6,24 @@ using static CoroutineHelper;
 
 public class BackgroundController : MonoBehaviour
 {
+    AudioManager audioManager;
+
     Image blackBackground;
     IEnumerator fadeCoroutine;
 
     void Awake()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         blackBackground = GetComponentInChildren<Image>();
     }
 
     void Start()
     {
-        fadeCoroutine = Fade(1f, 0f);
+        fadeCoroutine = FadeBackground(1f, 0f, 1f);
         StartCoroutine(fadeCoroutine);
     }
 
-    public IEnumerator LoadSceneAfterDelay(int sceneIndex)
+    public IEnumerator LoadSceneAfterFade(int sceneIndex, float fadeDuration = 1f)
     {
         blackBackground.raycastTarget = true;
 
@@ -29,16 +32,29 @@ public class BackgroundController : MonoBehaviour
             StopCoroutine(fadeCoroutine);
         }
 
-        fadeCoroutine = Fade(0f, 1f);
+        audioManager.FadeMusicVolume(0f, fadeDuration);
+        fadeCoroutine = FadeBackground(0f, 1f, fadeDuration);
         yield return fadeCoroutine;
 
-        SceneManager.LoadScene(sceneIndex);
+        if (sceneIndex >= 0)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
+        else
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        }
     }
 
-    IEnumerator Fade(float startAlpha, float endAlpha)
+    IEnumerator FadeBackground(float startAlpha, float endAlpha, float fadeDuration)
     {
+        if (fadeDuration <= 0) yield break;
+
         float currentLerpTime = 0f;
-        float totalLerpTime = 1f;
 
         Color c = blackBackground.color;
         c.a = startAlpha;
@@ -46,7 +62,7 @@ public class BackgroundController : MonoBehaviour
 
         while (blackBackground.color.a != endAlpha)
         {
-            float lerpProgress = currentLerpTime / totalLerpTime;
+            float lerpProgress = currentLerpTime / fadeDuration;
 
             c.a = Mathf.Lerp(startAlpha, endAlpha, lerpProgress);
             blackBackground.color = c;
