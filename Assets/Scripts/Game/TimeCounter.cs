@@ -5,7 +5,8 @@ using TMPro;
 public class TimeCounter : MonoBehaviour
 {
     [HideInInspector] public TextMeshProUGUI timeText;
-    readonly string TimeFormat = "m':'ss'.'fff";
+    const string TimeFormat = "m':'ss'.'fff";
+    const string MonospaceTag = "<mspace=25>";
 
     float unpausedTime;
 
@@ -19,7 +20,7 @@ public class TimeCounter : MonoBehaviour
     void Update()
     {
         unpausedTime += Time.deltaTime;
-        timeText.text = TimeSpan.FromSeconds(unpausedTime).ToString(TimeFormat);
+        timeText.text = $"{MonospaceTag}{TimeSpan.FromSeconds(unpausedTime).ToString(TimeFormat)}";
     }
 
     void OnGamePaused(bool pauseState)

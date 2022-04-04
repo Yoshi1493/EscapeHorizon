@@ -78,23 +78,28 @@ public class Debris : Actor
         // check if the other trigger is the black hole
         if (coll.TryGetComponent(out BlackHole _))
         {
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-            }
-
-            scaleCoroutine = ScaleToZero();
-            StartCoroutine(scaleCoroutine);
+            ScaleToZero();
         }
     }
 
     void OnTriggerExit2D(Collider2D _)
     {
         transform.parent = originalParent;
-        DebrisPool.Instance.ReturnToPool(this);
+        ScaleToZero();
     }
 
-    IEnumerator ScaleToZero()
+    void ScaleToZero()
+    {
+        if (scaleCoroutine != null)
+        {
+            StopCoroutine(scaleCoroutine);
+        }
+
+        scaleCoroutine = _ScaleToZero();
+        StartCoroutine(scaleCoroutine);
+    }
+
+    IEnumerator _ScaleToZero()
     {
         // disable control
         moveDirection = Vector3.zero;
@@ -136,6 +141,6 @@ public class Debris : Actor
 
     void OnGameOver()
     {
-        OnGamePaused(true);
+        enabled = false;
     }
 }

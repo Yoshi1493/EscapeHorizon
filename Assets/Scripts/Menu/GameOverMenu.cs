@@ -4,6 +4,7 @@ using TMPro;
 public class GameOverMenu : Menu
 {
     [SerializeField] TextMeshProUGUI timeSurvivedText;
+    const string MonospaceTag = "<mspace=25>";
 
     protected override void Awake()
     {
@@ -15,7 +16,7 @@ public class GameOverMenu : Menu
     {
         Open();
 
-        string timeSurvived = FindObjectOfType<TimeCounter>().timeText.text;
+        string timeSurvived = FindObjectOfType<TimeCounter>().timeText.text.Substring(MonospaceTag.Length);
         timeSurvivedText.text = $"Time survived:\n{timeSurvived}";
     }
 }
