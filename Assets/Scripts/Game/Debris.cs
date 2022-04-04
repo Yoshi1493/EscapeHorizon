@@ -4,6 +4,8 @@ using static CoroutineHelper;
 
 public class Debris : Actor
 {
+    Transform originalParent;
+
     float moveSpeed;
     const float MinInitialSpeed = 1f;
     const float MaxInitialSpeed = 3f;
@@ -26,6 +28,8 @@ public class Debris : Actor
 
         player = FindObjectOfType<Player>();
         player.GameOverAction += OnGameOver;
+
+        originalParent = transform.parent;
     }
 
     void OnEnable()
@@ -33,7 +37,7 @@ public class Debris : Actor
         gameObject.layer = 8;
 
         moveSpeed = Random.Range(MinInitialSpeed, MaxInitialSpeed);
-        rotationSpeed = Random.Range(-60f, 60f);
+        rotationSpeed = Random.Range(90f, 360f) * Mathf.Sign(Random.value - 0.5f);
     }
 
     void Update()
@@ -84,15 +88,18 @@ public class Debris : Actor
         }
     }
 
+    void OnTriggerExit2D(Collider2D _)
+    {
+        transform.parent = originalParent;
+        DebrisPool.Instance.ReturnToPool(this);
+    }
+
     IEnumerator ScaleToZero()
     {
-        // disable movement input
+        // disable control
         moveDirection = Vector3.zero;
         moveSpeed = 0f;
-
-        // disable collider, unparent from everything
         collider.enabled = false;
-        transform.parent = null;
 
         float currentLerpTime = 0f;
         float totalLerpTime = 1f;
