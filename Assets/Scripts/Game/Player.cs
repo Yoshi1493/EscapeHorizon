@@ -31,7 +31,7 @@ public class Player : Actor
         Vector3 startPos = transform.position;
         Vector3 startScale = transform.localScale;
 
-        // lerp position and scale to (0, 0, 0)
+        // lerp position and scale to (0, 0, 0); lerp colour to black
         while (transform.localScale != Vector3.zero)
         {
             float lerpProgress = currentLerpTime / totalLerpTime;
@@ -39,6 +39,8 @@ public class Player : Actor
 
             transform.position = Vector3.Lerp(startPos, Vector3.zero, actualProgress);
             transform.localScale = Vector3.Lerp(startScale, Vector3.zero, actualProgress);
+            spriteRenderer.color = Color.Lerp(Color.white, Color.black, actualProgress);
+            print(spriteRenderer.color);
 
             yield return EndOfFrame;
             currentLerpTime += Time.deltaTime;

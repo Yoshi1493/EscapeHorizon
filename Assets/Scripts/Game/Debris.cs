@@ -32,9 +32,8 @@ public class Debris : Actor
     {
         gameObject.layer = 8;
 
-        moveDirection = transform.up;
         moveSpeed = Random.Range(MinInitialSpeed, MaxInitialSpeed);
-        rotationSpeed = Random.Range(-30f, 30f);
+        rotationSpeed = Random.Range(-60f, 60f);
     }
 
     void Update()
@@ -101,7 +100,7 @@ public class Debris : Actor
         Vector3 startPos = transform.position;
         Vector3 startScale = transform.localScale;
 
-        // lerp position and scale to (0, 0, 0)
+        // lerp position and scale to (0, 0, 0); lerp colour to black
         while (transform.localScale != Vector3.zero)
         {
             float lerpProgress = currentLerpTime / totalLerpTime;
@@ -109,6 +108,7 @@ public class Debris : Actor
 
             transform.position = Vector3.Lerp(startPos, Vector3.zero, actualProgress);
             spriteRenderer.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, actualProgress);
+            spriteRenderer.color = Color.Lerp(Color.white, Color.black, actualProgress);
 
             yield return EndOfFrame;
             currentLerpTime += Time.deltaTime;
