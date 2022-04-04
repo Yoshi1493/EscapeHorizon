@@ -33,7 +33,7 @@ public class PlayerMovement : Actor
         if (magnitude > MovementThreshold)
         {
             float targetRotZ = Mathf.Atan2(-moveDirection.x, moveDirection.y) * Mathf.Rad2Deg;
-            float zRot = Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotZ, ref smoothDampAngle, SmoothingAmount * Time.deltaTime);
+            float zRot = Mathf.SmoothDampAngle(transform.eulerAngles.z, targetRotZ, ref smoothDampAngle, magnitude * SmoothingAmount * Time.deltaTime);
 
             transform.eulerAngles = zRot * Vector3.forward;
 
