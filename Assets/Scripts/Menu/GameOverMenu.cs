@@ -1,5 +1,10 @@
+using UnityEngine;
+using TMPro;
+
 public class GameOverMenu : Menu
 {
+    [SerializeField] TextMeshProUGUI timeSurvivedText;
+
     protected override void Awake()
     {
         base.Awake();
@@ -9,5 +14,8 @@ public class GameOverMenu : Menu
     void OnGameOver()
     {
         Open();
+
+        string timeSurvived = FindObjectOfType<TimeCounter>().timeText.text;
+        timeSurvivedText.text = $"Time survived:\n{timeSurvived}";
     }
 }
