@@ -1847,7 +1847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -350
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2176,7 +2176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -250
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2392,7 +2392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -450
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2963,7 +2963,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ludum Dare 50
+  m_text: Escape Horizon
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6a24e39600491f4990c0fc418234167, type: 2}
   m_sharedMaterial: {fileID: -1966086941955982987, guid: d6a24e39600491f4990c0fc418234167, type: 2}
@@ -3117,7 +3117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 1472791045279683620, guid: 4ebba96ebf29c2f46bdad71ea80d9c28, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
