@@ -5,6 +5,9 @@ using static CoroutineHelper;
 public class Debris : Actor
 {
     Transform originalParent;
+    Player player;
+
+    [SerializeField] Sprite[] sprites;
 
     float moveSpeed;
     const float MinInitialSpeed = 1f;
@@ -15,8 +18,6 @@ public class Debris : Actor
 
     [SerializeField] AnimationCurve scaleInterpolationCurve;
     IEnumerator scaleCoroutine;
-
-    Player player;
 
     protected override void Awake()
     {
@@ -38,6 +39,13 @@ public class Debris : Actor
 
         moveSpeed = Random.Range(MinInitialSpeed, MaxInitialSpeed);
         rotationSpeed = Random.Range(90f, 360f) * Mathf.Sign(Random.value - 0.5f);
+
+        RandomizeSprite();
+    }
+
+    void RandomizeSprite()
+    {
+        spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
     }
 
     void Update()

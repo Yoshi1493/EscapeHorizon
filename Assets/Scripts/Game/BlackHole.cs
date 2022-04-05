@@ -6,7 +6,7 @@ using static CoroutineHelper;
 public class BlackHole : Actor
 {
     const float DebrisScaleFactor = 0.5f;
-    const float ConstantScaleFactor = 0.05f;
+    const float ConstantScaleFactor = 0.1f;
 
     ParticleSystem visualEffect;
     [SerializeField] AnimationCurve scaleInterpolationCurve;

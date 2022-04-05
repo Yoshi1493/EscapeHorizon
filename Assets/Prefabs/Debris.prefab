@@ -49,7 +49,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.64
+  m_Radius: 0.48
 --- !u!50 &5892860477751133789
 Rigidbody2D:
   serializedVersion: 4
@@ -84,6 +84,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
+  rigidbody: {fileID: 0}
+  collider: {fileID: 0}
+  sprites:
+  - {fileID: 8149009158662877648, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: 3933743010824487973, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: -2668201035383378144, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: 4381731917727284322, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: -6036893756502268426, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: -2554040241194618293, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: -5217845429508081700, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
+  - {fileID: 9095899817102033625, guid: 38847440dd85a96438ce0e0935b4874a, type: 3}
   scaleInterpolationCurve:
     serializedVersion: 2
     m_Curve:
@@ -179,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6c33cf92b579dca488efc78f182bb3cb, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -187,6 +198,6 @@ SpriteRenderer:
   m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

@@ -8,15 +8,15 @@ public class DebrisSpawner : MonoBehaviour
     Vector3 spawnRange;
 
     const float MinSpawnInterval = 1.0f;
-    const float MaxSpawnInterval = 10.0f;
+    const float MaxSpawnInterval = 5.0f;
     float spawnInterval = MaxSpawnInterval;
     float timer = 0f;
 
-    const int minSpawnCountPerWave = 1;
-    const int maxSpawnCountPerWave = 5;
+    const int minSpawnCountPerWave = 3;
+    const int maxSpawnCountPerWave = 8;
 
     int currentWave;
-    const int maxWave = 100;
+    const int MaxWave = 50;
 
     [SerializeField] AnimationCurve spawnIntervalInterpolation;
 
@@ -51,13 +51,14 @@ public class DebrisSpawner : MonoBehaviour
             }
 
             // increment wave
-            if (currentWave <= maxWave)
+            if (currentWave <= MaxWave)
             {
                 currentWave++;
 
                 // reduce spawn interval based on interpolation curve
-                float lerpProgress = (float)currentWave / maxWave;
+                float lerpProgress = (float)currentWave / MaxWave;
                 spawnInterval = Mathf.Lerp(MinSpawnInterval, MaxSpawnInterval, spawnIntervalInterpolation.Evaluate(lerpProgress));
+                print(spawnInterval);
             }
 
             // reset timer
