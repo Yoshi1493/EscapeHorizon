@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour
             {
                 float lerpProgress = currentLerpTime / fadeDuration;
                 musicTracks[i].volume = Mathf.Lerp(startVolume, targetVolume, lerpProgress);
-                print($"volume of {musicTracks[i].name}: {musicTracks[i].volume}");
+
                 yield return EndOfFrame;
                 currentLerpTime += Time.deltaTime;
             }

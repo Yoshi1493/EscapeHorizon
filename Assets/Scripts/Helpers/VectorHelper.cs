@@ -10,7 +10,7 @@ public static class VectorHelper
         v.x = (Mathf.Cos(radians) * v.x) - (Mathf.Sin(radians) * v.y);
         v.y = (Mathf.Sin(radians) * v.x) + (Mathf.Cos(radians) * v.y);
 
-        return vector;
+        return v;
     }
 
     public static Vector3 GetRandomSpawnPosition(Vector3 minSpawnRange, Vector3 maxSpawnRange)

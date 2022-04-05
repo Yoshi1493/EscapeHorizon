@@ -64,7 +64,7 @@ public class Debris : Actor
 
     void OnPlayerVacuum(Debris debris)
     {
-        debris.moveSpeed = 1f;
+        debris.moveSpeed = DispelSpeed * 0.5f;
     }
 
     void OnPlayerDispel(Debris debris, Vector3 resultingDirection)

@@ -9,9 +9,9 @@ public class Vacuum : MonoBehaviour
     [SerializeField] FloatObject moveSpeed;
     const float OriginalMoveSpeed = 5f;
 
-    const float FieldOfView = 45f;
-    const float RangeOfView = 2f;
-    const int RayDensity = 9;
+    const float FieldOfView = 60f;
+    const float RangeOfView = 5f;
+    const int RayDensity = 11;
     private LayerMask DebrisLayer;
 
     [SerializeField] ParticleSystem vacuumEffect;
@@ -67,11 +67,11 @@ public class Vacuum : MonoBehaviour
 
     void CheckForCollisions()
     {
+        // find how many degrees to stagger each raycast by
+        float raySpread = FieldOfView / (RayDensity - 1);
+
         for (int i = 0; i < RayDensity; i++)
         {
-            // find how many degrees to stagger each raycast by
-            float raySpread = FieldOfView / (RayDensity - 1);
-
             // find how many degrees to rotate each raycast by
             float theta = (FieldOfView * -0.5f) + (i * raySpread);
 
