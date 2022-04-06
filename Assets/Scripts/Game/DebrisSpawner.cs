@@ -58,7 +58,6 @@ public class DebrisSpawner : MonoBehaviour
                 // reduce spawn interval based on interpolation curve
                 float lerpProgress = (float)currentWave / MaxWave;
                 spawnInterval = Mathf.Lerp(MinSpawnInterval, MaxSpawnInterval, spawnIntervalInterpolation.Evaluate(lerpProgress));
-                print(spawnInterval);
             }
 
             // reset timer
