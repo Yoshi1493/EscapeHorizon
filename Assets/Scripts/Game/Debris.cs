@@ -12,7 +12,7 @@ public class Debris : Actor
     float moveSpeed;
     const float MinInitialSpeed = 1f;
     const float MaxInitialSpeed = 3f;
-    const float DispelSpeed = 10f;
+    const float DispelSpeed = 20f;
 
     float rotationSpeed;
 

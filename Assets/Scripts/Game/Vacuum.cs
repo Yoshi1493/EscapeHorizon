@@ -9,10 +9,13 @@ public class Vacuum : MonoBehaviour
     [SerializeField] FloatObject moveSpeed;
     const float OriginalMoveSpeed = 5f;
 
-    const float FieldOfView = 60f;
+    const float VacuumCooldown = 0.5f;
+    float vacuumTimer;
+
+    const float FieldOfView = 45f;
     const float RangeOfView = 5f;
-    const int RayDensity = 11;
-    private LayerMask DebrisLayer;
+    const int RayDensity = 9;
+    LayerMask DebrisLayer;
 
     [SerializeField] ParticleSystem vacuumEffect;
     [SerializeField] ParticleSystem dispelEffect;
@@ -33,8 +36,13 @@ public class Vacuum : MonoBehaviour
 
     void Update()
     {
-        GetLeftMouseButtonInput();
-        GetRightMouseButtonInput();
+        vacuumTimer -= Time.deltaTime;
+
+        if (vacuumTimer <= 0)
+        {
+            GetLeftMouseButtonInput();
+            GetRightMouseButtonInput();
+        }
     }
 
     void GetLeftMouseButtonInput()
@@ -76,22 +84,22 @@ public class Vacuum : MonoBehaviour
             float theta = (FieldOfView * -0.5f) + (i * raySpread);
 
             // get all ray directions based on field of view and raycast rotation amount
-            Vector3 direction = transform.up.RotateVectorBy(theta);
+            Vector3 rayDirection = transform.up.RotateVectorBy(theta);
+
+            // modify raycast distance to match distance of middle-most ray length
+            float rayDistance = RangeOfView / Mathf.Cos(theta * Mathf.Deg2Rad);
 
             // perform raycast
-            var hit = Physics2D.Raycast(transform.position, direction, RangeOfView, DebrisLayer);
+            var hit = Physics2D.Raycast(transform.position, rayDirection, rayDistance, DebrisLayer);
 
             if (hit)
             {
-                Transform hitTransform = hit.transform;
 
                 // parent the hit gameobject with the debris parent transform
+                Transform hitTransform = hit.transform;
                 hitTransform.parent = debrisParent;
 
-                // invoke action
                 VacuumAction?.Invoke(hitTransform.GetComponent<Debris>());
-
-                // play sfx
                 AudioManager.Instance.PlaySound("vacuum");
 
                 return;
@@ -118,6 +126,9 @@ public class Vacuum : MonoBehaviour
 
                 dispelEffect.Play();
             }
+
+            // put vacuum ability on cooldown
+            vacuumTimer = VacuumCooldown;
         }
     }
 
