@@ -45,14 +45,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string name)
+    public void PlaySound(string name, bool allowOverlap = false)
     {
         var sound = System.Array.Find(soundEffects, s => s.name == name);
         if (sound == null) return;
 
         sound.source.volume = playerSettings.soundVolume.Value;
 
-        if (!sound.source.isPlaying)
+        if (!sound.source.isPlaying || allowOverlap)
         {
             sound.source.Play();
         }
