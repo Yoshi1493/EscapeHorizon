@@ -148,12 +148,6 @@ public class Debris : Actor
         DebrisPool.Instance.ReturnToPool(this);
     }
 
-    protected override void OnGamePaused(bool pauseState)
-    {
-        base.OnGamePaused(pauseState);
-        rigidbody.bodyType = pauseState ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
-    }
-
     void OnGameOver()
     {
         enabled = false;
