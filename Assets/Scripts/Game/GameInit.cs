@@ -10,8 +10,5 @@ public class GameInit : MonoBehaviour
         {
             effect.enabled = true;
         }
-
-        // set application fps to 60
-        Application.targetFrameRate = 60;
     }
 }
